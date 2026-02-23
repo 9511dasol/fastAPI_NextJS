@@ -31,3 +31,18 @@ export const getAuth = async (id: string, pw: string) => {
         })
 
 }
+
+export const signup = async (id: string, pw: string) => {
+    console.log(id, pw)
+    if (id.length <= 4 && pw.length <= 5) return false;
+    return axios.post(`${URLs.local}/signup`, { id, pw })
+        .then(res => {
+            return res.data;
+        })
+        .catch(error => {
+            // alert(`error: Comfirm your ID OR PW`);
+            alert(`${URLs.local}/signup`)
+            return false;
+        });
+
+}
