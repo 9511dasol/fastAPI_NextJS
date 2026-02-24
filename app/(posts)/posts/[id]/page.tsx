@@ -1,10 +1,10 @@
 import { getInfo } from '@/ingredients/getInfo';
 import { URLs } from '@/ingredients/url';
 import { Item, PageProps } from "@/ingredients/interface";
-// import { post } from '@/app/(home)/page';
 import Btn from '../../../../components/btn';
 import Link from 'next/link';
 // import { useRouter } from 'next/navigation';
+// import { post } from '@/app/(home)/page';
 const delInfo = () => {
 
 }
