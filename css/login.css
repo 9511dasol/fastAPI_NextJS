@@ -11,11 +11,10 @@
     background: url(./background/red-stag-in-morning-fog-e1.jpg) no-repeat;
     background-size: cover;
     background-position: center center;
+    font-family: 'Inter', -apple-system, sans-serif;
 }
 
 .wraaper {
-
-
     width: 420px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -31,6 +30,7 @@
     color: #0d0d0d;
     font-size: 36px;
     text-align: center;
+    letter-spacing: -0.025em;
 }
 
 .wraaper .input-box {
@@ -51,6 +51,13 @@
     font-size: 16px;
     color: #0d0d0d;
     padding: 20px 45px 20px 20px;
+}
+
+.input-box input:focus {
+    background: #ffffff;
+    border-color: #3b82f6;
+    /* 피그마 기본 블루 색상 */
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 .input-box input::placeholder {

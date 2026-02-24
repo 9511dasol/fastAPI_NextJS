@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@boxicons/react": "^1.0.2",
+    "@boxicons/react": "^1.0.3",
     "axios": "^1.13.4",
     "boxicons": "^2.1.4",
     "date-fns": "^4.1.0",

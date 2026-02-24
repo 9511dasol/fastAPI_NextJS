@@ -26,7 +26,11 @@ export async function getInfos() {
     // return json
     // return fetch(URL).then(response => response.json());
     return axios(URLs["local"] + "/api/factory-audits/")
-        .then(response => response.data)
+        .then(response => {
+            let data = response.data;
+
+            return data
+        })
         .catch(err => alert(err));
 }
 

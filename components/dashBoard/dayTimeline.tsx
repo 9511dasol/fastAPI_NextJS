@@ -14,32 +14,39 @@ const DayTimeline = ({ projects, onSelect }: { projects: Project[], onSelect: (p
     const viewEnd = addDays(startDate, totalDays);
 
     return (
-        <div className="bg-white p-6 rounded-2xl shadow-md overflow-hidden flex flex-col">
+        <div className="bg-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col border border-gray-100">
             <div className="w-full">
-                {/* 1. 날짜 헤더 - 상단 고정 (z-index 조절) */}
-                <div className="grid border-b border-gray-100 bg-white sticky top-0 z-20"
+                {/* 1. 날짜 헤더 - 프로페셔널한 스티키 헤더 */}
+                <div className="grid border-b border-gray-100 bg-white/80 backdrop-blur-md sticky top-0 z-20"
                     style={{ gridTemplateColumns: `repeat(${totalDays}, minmax(0, 1fr))` }}>
-                    {Array.from({ length: totalDays }).map((_, i) => (
-                        <div key={i} className="text-center py-2 text-[10px] text-gray-400 border-r border-gray-50 last:border-0">
-                            {format(addDays(startDate, i), 'MM/dd')}
-                        </div>
-                    ))}
+                    {Array.from({ length: totalDays }).map((_, i) => {
+                        const date = addDays(startDate, i);
+                        const isToday = format(date, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');
+                        return (
+                            <div key={i} className={`text-center py-3 border-r border-gray-50 last:border-0 transition-colors ${isToday ? 'bg-red-50/50' : ''}`}>
+                                <div className={`text-[9px] font-black uppercase tracking-tighter ${isToday ? 'text-red-500' : 'text-gray-400'}`}>
+                                    {format(date, 'EEE')}
+                                </div>
+                                <div className={`text-[11px] font-bold ${isToday ? 'text-red-600' : 'text-gray-900'}`}>
+                                    {format(date, 'MM/dd')}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
 
-                {/* 2. 타임라인 바 영역 - 세로 스크롤 적용 */}
-                <div className="relative mt-2 overflow-y-auto 
-                    /* 최대 높이 설정 (원하는 크기로 조절 가능) */
-                    max-h-[70vh]
-                    /* 커스텀 스크롤바 디자인 */
-                    [&::-webkit-scrollbar]:w-1.5
-                    [&::-webkit-scrollbar-track]:bg-gray-50
-                    [&::-webkit-scrollbar-thumb]:bg-gray-200
-                    [&::-webkit-scrollbar-thumb]:rounded-full
-                    hover:[&::-webkit-scrollbar-thumb]:bg-blue-300
-                    bg-gray-50/50 rounded-xl transition-all"
-                >
-                    {/* 프로젝트 바들이 들어갈 컨테이너 - 높이를 데이터 개수에 맞게 동적 설정 */}
-                    <div className="relative w-full" style={{ height: `${projects.length * 45 + 20}px` }}>
+                {/* 2. 타임라인 바 영역 - 세로 스크롤 및 배경 그리드 */}
+                <div className="relative mt-0 overflow-y-auto max-h-[60vh] custom-scrollbar bg-gray-50/30 transition-all">
+
+                    {/* 배경 세로 가이드라인 (선택사항, 가독성 향상) */}
+                    <div className="absolute inset-0 grid pointer-events-none"
+                        style={{ gridTemplateColumns: `repeat(${totalDays}, minmax(0, 1fr))` }}>
+                        {Array.from({ length: totalDays }).map((_, i) => (
+                            <div key={i} className="border-r border-gray-100/50 last:border-0" />
+                        ))}
+                    </div>
+
+                    <div className="relative w-full" style={{ height: `${projects.length * 52 + 40}px` }}>
                         {projects.map((p, idx) => {
                             const pStart = today;
                             const pEnd = startOfDay(new Date(p.expiryDate));
@@ -54,30 +61,53 @@ const DayTimeline = ({ projects, onSelect }: { projects: Project[], onSelect: (p
                             const duration = differenceInDays(displayEnd, displayStart) + 1;
                             const width = (duration / totalDays) * 100;
 
+                            // D-Day 색상 로직
+                            const isUrgent = p.dueDays !== undefined && p.dueDays <= 7;
+
                             return (
                                 <div
-                                    key={p.id} onClick={() => onSelect(p)}
-                                    className={`absolute h-9 bg-blue-600/60 backdrop-blur-md text-white text-[10px] flex flex-col justify-center px-3 cursor-pointer shadow-sm transition-transform hover:scale-[1.01] hover:z-10
-                                        ${pStart < startDate ? 'rounded-l-none' : 'rounded-l-xl'}
-                                        ${pEnd >= viewEnd ? 'rounded-r-none border-r-4 border-white/30' : 'rounded-r-xl'}
-                                    `}
+                                    key={p.id}
+                                    onClick={() => onSelect(p)}
+                                    className={`absolute h-10 flex flex-col justify-center px-3 cursor-pointer transition-all duration-300 group
+                                ${isUrgent ? 'bg-red-500 shadow-lg shadow-red-100' : 'bg-blue-600 shadow-md shadow-blue-100'}
+                                hover:scale-[1.01] hover:z-10 hover:brightness-110
+                                ${pStart < startDate ? 'rounded-l-none' : 'rounded-l-2xl'}
+                                ${pEnd >= viewEnd ? 'rounded-r-none border-r-[3px] border-white/40' : 'rounded-r-2xl'}
+                            `}
                                     style={{
                                         left: `${left}%`,
                                         width: `${width}%`,
-                                        top: `${idx * 45 + 12}px`,
+                                        top: `${idx * 52 + 20}px`,
                                     }}
                                 >
-                                    <div className="font-bold truncate">[{p.buyer}] {p.factoryName}</div>
-                                    <div className="text-[8px] opacity-80">~ {p.expiryDate} (D-{p.dueDays})</div>
+                                    <div className="flex items-center gap-1.5 overflow-hidden">
+                                        <i className={`bx ${isUrgent ? 'bx-error-circle' : 'bx-package'} text-white/80 text-[12px]`}></i>
+                                        <div className="font-black text-white text-[10px] truncate tracking-tight">
+                                            <span className="opacity-70 font-normal mr-1">[{p.buyer}]</span>
+                                            {p.factoryName}
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-0.5">
+                                        <span className="text-[8px] text-white/70 font-medium whitespace-nowrap leading-none">
+                                            ~ {format(new Date(p.expiryDate), 'MM.dd')}
+                                        </span>
+                                        <span className="text-[9px] bg-white/20 px-1.5 py-0.5 rounded-full text-white font-black leading-none">
+                                            D-{p.dueDays}
+                                        </span>
+                                    </div>
                                 </div>
                             );
                         })}
 
-                        {/* 오늘 표시 세로선 - 전체 높이에 맞춰 표시 */}
-                        <div className="absolute top-0 bottom-0 border-l-2 border-dashed border-red-500/40 z-0 pointer-events-none"
+                        {/* 오늘 표시 세로 가이드 (오늘 시점 강조) */}
+                        <div className="absolute top-0 bottom-0 z-10 pointer-events-none"
                             style={{
                                 left: `${(differenceInDays(today, startDate) / totalDays) * 100}%`,
-                            }} />
+                            }}>
+                            <div className="h-full border-l-2 border-red-500/30 border-dashed relative">
+                                <div className="absolute top-0 -left-1.25 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white shadow-sm" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

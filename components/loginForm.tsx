@@ -5,6 +5,7 @@ import useAuthStore from '@/stores/getAuth'; // Zustand 스토어
 import { getAuth, signup } from "@/ingredients/getInfo";
 import "../css/login.css";
 import 'boxicons/css/boxicons.min.css';
+import Link from "next/link";
 
 const checkIDPW = (id: string, pw: string) => id.length >= 5 && pw.length >= 6 ? true : false;
 
@@ -150,7 +151,7 @@ export default function LoginForm() {
                                 <input type="checkbox" />
                                 Remember me
                             </label>
-                            <a href="#">Forget Password?</a>
+                            <Link href="#">Forget Password?</Link>
                         </div>
                         <button className="btn" type="submit" disabled={loading}>
                             {loading ? "로그인 중..." : "Login"}
