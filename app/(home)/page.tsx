@@ -1,16 +1,16 @@
-import { Item } from "@/ingredients/interface";
-import { URLs } from "@/ingredients/url";
-import axios from "axios";
-import Link from "next/link";
-import { getInfoAll } from '@/ingredients/getInfo';
-import LoginForm from "@/components/loginForm";
+import ProjectDashboard from "@/components/projectDashboard";
+import { getInfos } from "@/ingredients/getInfo";
+import { fetchData } from "@/ingredients/interface";
 
 
 
 
 
-export default function Page() {
-    return <LoginForm />;
+export default async function Page() {
+    const items: fetchData = await getInfos();
+    // return <LoginForm />;
+    return < ProjectDashboard items={items} />
+
 
 }
 // import Image from "next/image";
