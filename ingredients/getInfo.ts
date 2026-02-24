@@ -20,7 +20,7 @@ export async function getInfoAll() {
 }
 
 export async function getInfos() {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); //Loding
+    await new Promise((resolve) => setTimeout(resolve, 2000)); //Loding
     // const response = await fetch(URL);
     // const json = await response.json();
     // return json
@@ -31,7 +31,7 @@ export async function getInfos() {
 
             return data
         })
-        .catch(err => alert(err));
+        .catch(err => console.error(err));
 }
 
 export const getAuth = async (id: string, pw: string) => {
@@ -41,7 +41,7 @@ export const getAuth = async (id: string, pw: string) => {
         })
         .catch(error => {
             // alert(`error: Comfirm your ID OR PW`);
-            alert(`${URLs.local}/auth`)
+            // alert(`${URLs.local}/auth`)
             return false;
         })
 
@@ -56,7 +56,7 @@ export const signup = async (id: string, pw: string) => {
         })
         .catch(error => {
             // alert(`error: Comfirm your ID OR PW`);
-            alert(`${URLs.local}/signup`)
+            console.error(`${URLs.local}/signup`)
             return false;
         });
 

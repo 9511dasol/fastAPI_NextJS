@@ -454,7 +454,7 @@ const ProjectDashboard = ({ items }: { items: fetchData }) => {
                                 </button>
                                 <button
                                     className="flex-2 bg-blue-600 text-white py-4 rounded-2xl font-black text-xs hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2"
-                                    onClick={() => alert(selectedProject.factoryName + ", 업로드 전")}>
+                                >
                                     상세 리포트 보기
                                     <i className='bx bx-right-arrow-alt text-lg'></i>
                                 </button>

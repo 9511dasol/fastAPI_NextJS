@@ -1,4 +1,4 @@
-
+export const dynamic = 'force-dynamic';
 import { getInfoAll } from "@/ingredients/getInfo";
 import { Item } from "@/ingredients/interface";
 import BlogTable from "@/components/blogTable"; // Client Component
