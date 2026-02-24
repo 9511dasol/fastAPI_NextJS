@@ -1,7 +1,7 @@
 import { getInfo } from '@/ingredients/getInfo';
 import { URLs } from '@/ingredients/url';
 import { Item, PageProps } from "@/ingredients/interface";
-import { post } from '@/app/(home)/page';
+// import { post } from '@/app/(home)/page';
 import Btn from '../../../../components/btn';
 import Link from 'next/link';
 // import { useRouter } from 'next/navigation';
@@ -16,30 +16,31 @@ export default async function Page({ params }: PageProps) {
     // setTimeout(() => router.push('/'), 200);
     const { id } = await params;  // Promise 풀기
     const infos: Item = await getInfo(id);
-    return (
-        <div className='flex flex-col min-h-screen justify-center'>
-            <table className="table-auto md:table-fixed m-10 text-left">
-                <thead>
-                    <tr className=''>
-                        {post.map((v, idx) => <th key={idx}>{v}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr >
-                        <td>{infos.title}</td>
-                        <td>{infos.content}</td>
-                        <td>{infos.id}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div className="flex justify-between items-center m-10">
-                <Link href={"/"}>홈</Link>
-                <Btn name='삭제' num={+id} />
-                <Link href={`${id}/update`}>수정</Link>
-                {/* <Link href={`update`}>수정</Link> */}
-            </div>
-        </div>
-    )
+    return <div></div>
+    // return (
+    //     <div className='flex flex-col min-h-screen justify-center'>
+    //         <table className="table-auto md:table-fixed m-10 text-left">
+    //             <thead>
+    //                 <tr className=''>
+    //                     {post.map((v, idx) => <th key={idx}>{v}</th>)}
+    //                 </tr>
+    //             </thead>
+    //             <tbody>
+    //                 <tr >
+    //                     <td>{infos.title}</td>
+    //                     <td>{infos.content}</td>
+    //                     <td>{infos.id}</td>
+    //                 </tr>
+    //             </tbody>
+    //         </table>
+    //         <div className="flex justify-between items-center m-10">
+    //             <Link href={"/"}>홈</Link>
+    //             <Btn name='삭제' num={+id} />
+    //             <Link href={`${id}/update`}>수정</Link>
+    //             {/* <Link href={`update`}>수정</Link> */}
+    //         </div>
+    //     </div>
+    // )
 }
 
 // import Image from "next/image";
