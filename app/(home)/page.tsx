@@ -7,26 +7,34 @@ import { fetchData } from "@/ingredients/interface";
 
 // app/(home)/page.tsx
 export default async function Page() {
-    try {
-        const items = await getInfos();
+    const items = await getInfos();
 
-        // 데이터가 없는 경우를 위한 방어 코드
-        if (!items) {
-            return <div className="p-10 text-center">데이터를 가져오지 못했습니다. 서버를 확인해주세요.</div>;
-        }
-
-        return <ProjectDashboard items={items} />;
-    } catch (error) {
-        // 백엔드 서버가 꺼져 있을 때(ECONNREFUSED) 이리로 들어옵니다.
-        console.error("Backend connection failed:", error);
-        return (
-            <div className="p-10 text-center flex flex-col items-center gap-4">
-                <i className='bx bx-server text-5xl text-red-500'></i>
-                <h1 className="text-xl font-bold">백엔드 서버 연결 실패</h1>
-                <p className="text-gray-500 text-sm">http://192.168.239.38:8000 서버가 켜져 있는지 확인하세요.</p>
-            </div>
-        );
+    // 데이터가 없는 경우를 위한 방어 코드
+    if (!items) {
+        return <div className="p-10 text-center">데이터를 가져오지 못했습니다. 서버를 확인해주세요.</div>;
     }
+
+    return <ProjectDashboard items={items} />;
+    // try {
+    //     const items = await getInfos();
+
+    //     // 데이터가 없는 경우를 위한 방어 코드
+    //     if (!items) {
+    //         return <div className="p-10 text-center">데이터를 가져오지 못했습니다. 서버를 확인해주세요.</div>;
+    //     }
+
+    //     return <ProjectDashboard items={items} />;
+    // } catch (error) {
+    //     // 백엔드 서버가 꺼져 있을 때(ECONNREFUSED) 이리로 들어옵니다.
+    //     console.error("Backend connection failed:", error);
+    //     return (
+    //         <div className="p-10 text-center flex flex-col items-center gap-4">
+    //             <i className='bx bx-server text-5xl text-red-500'></i>
+    //             <h1 className="text-xl font-bold">백엔드 서버 연결 실패</h1>
+    //             <p className="text-gray-500 text-sm">http://192.168.239.38:8000 서버가 켜져 있는지 확인하세요.</p>
+    //         </div>
+    //     );
+    // }
 }
 // import Image from "next/image";
 

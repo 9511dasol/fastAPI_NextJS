@@ -37,3 +37,10 @@ export interface fetchData {
     totalCount: number;
     totalPages: number;
 }
+
+export interface execelSendResult {
+    failed: number;
+    inserted: number;
+    skipped: number;
+    updated: number;
+}

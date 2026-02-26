@@ -5,7 +5,7 @@ import { Project } from '@/ingredients/interface';
 import { getExpiryGroups } from '@/ingredients/func';
 import { differenceInDays, startOfDay } from 'date-fns';
 
-const ExpiryChart = ({ projects }: { projects: Project[] }) => {
+const ExpiryChart = ({ projects, onSelect }: { projects: Project[], onSelect: (p: Project) => void }) => {
     const today = startOfDay(new Date());
     const groups = useMemo(() => getExpiryGroups(projects), [projects]);
     const maxCount = useMemo(() => Math.max(...groups.map(g => g.items.length), 1), [groups]);
@@ -46,7 +46,6 @@ const ExpiryChart = ({ projects }: { projects: Project[] }) => {
                 </div>
                 <div className='flex flex-col'>
                     <h2 className="text-xl font-black text-gray-900">만기 구간별 분석</h2>
-                    <p className="text-xs text-gray-400 font-medium tracking-tight">구간을 클릭하여 상세 기업 리스트를 확인하세요</p>
                 </div>
             </div>
 
@@ -116,7 +115,9 @@ const ExpiryChart = ({ projects }: { projects: Project[] }) => {
                                     const diff = p.expiryDate ? differenceInDays(new Date(p.expiryDate), today) : null;
 
                                     return (
-                                        <div key={p.id} className="group/item flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all">
+                                        <div key={p.id}
+                                            className="group/item flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all"
+                                            onClick={() => onSelect(p)}>
                                             <div className="flex items-center gap-4">
                                                 <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover/item:bg-blue-50 group-hover/item:text-blue-500 transition-colors">
                                                     <i className='bx bx-buildings text-lg'></i>
