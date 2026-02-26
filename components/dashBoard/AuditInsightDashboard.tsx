@@ -109,7 +109,7 @@ export default function AuditInsightDashboard({ projects, onSelect }: Props) {
                         <h4 className="text-sm font-black text-[#1A252F] tracking-tight">리스크 분포 비율</h4>
                     </div>
 
-                    <div className="w-full h-[200px] relative">
+                    <div className="w-full h-50 relative">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
