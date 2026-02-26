@@ -3,7 +3,7 @@ import 'boxicons/css/boxicons.min.css';
 
 export default function Loading() {
     return (
-        <div className="flex flex-col items-center justify-center space-y-6">
+        <div className="flex flex-col items-center justify-center space-y-6 h-screen">
             {/* 1. 스피너 아이콘 */}
             <div className="relative w-20 h-20">
                 <div className="absolute inset-0 border-4 border-blue-100 rounded-full"></div>

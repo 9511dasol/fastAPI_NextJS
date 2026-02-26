@@ -15,9 +15,11 @@
     "axios": "^1.13.4",
     "boxicons": "^2.1.4",
     "date-fns": "^4.1.0",
+    "lucide-react": "^0.575.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "recharts": "^3.7.0",
     "zustand": "^5.0.11"
   },
   "devDependencies": {

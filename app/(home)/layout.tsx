@@ -28,11 +28,25 @@ export default function DashboardLayout({
     z-50
 ">
                 {/* 로고 영역에도 수축 방지 */}
-                <Link href="/" className="flex items-center gap-3 shrink-0">
-                    <div className="w-10 h-10 bg-blue-600 rounded-xl shrink-0 flex items-center justify-center shadow-lg shadow-blue-100 aspect-square">
-                        <i className='bx bxs-bolt text-white text-xl shrink-0'></i>
+                <Link href="/" className="flex items-center gap-3 shrink-0 group transition-all duration-300">
+                    {/* 로고 아이콘 */}
+                    <div className="relative w-9 h-9 shrink-0 flex items-center justify-center bg-white border-2 border-slate-200 rounded-md transition-all group-hover:border-blue-600 group-hover:shadow-sm">
+                        <i className='bx bxs-grid-alt text-blue-600 text-xl z-10 transition-transform group-hover:rotate-90'></i>
+
+                        {/* 장식용 포인트 */}
+                        <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-red-400 rounded-full opacity-80 animate-pulse"></div>
+                        <div className="absolute bottom-1 left-1 w-1.5 h-1.5 bg-amber-400 rounded-full opacity-80"></div>
                     </div>
-                    <span className="hidden lg:block font-black text-xl text-gray-900 truncate">Execel</span>
+
+                    {/* 브랜드 텍스트: 이 부분이 return 안에 있어야 오류가 안 납니다 */}
+                    <div className="hidden lg:flex flex-col leading-none">
+                        <span className="font-black text-[18px] text-slate-900 tracking-tighter uppercase italic">
+                            Dashboard
+                        </span>
+                        <span className="text-[9px] font-bold text-blue-600 tracking-[0.2em] mt-0.5 opacity-80 uppercase">
+                            Insight Engine
+                        </span>
+                    </div>
                 </Link>
 
                 <nav className="hidden md:block mt-10 flex-1 shrink-0">
@@ -70,18 +84,30 @@ export default function DashboardLayout({
 
                     {/* 3. 중앙 액션 버튼 (플러스 버튼 강조) */}
                     {/* 3. 중앙 검색 버튼 (기존 플러스 버튼에서 변경) */}
-                    <Link href="/search" className="relative -top-4 shrink-0">
+                    <Link href="/add" className="relative -top-5 shrink-0 group">
+                        {/* 메인 버튼 컨테이너 */}
                         <div className={`
-        w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-4 border-white transition-all active:scale-90
-        ${pathname === '/search'
-                                ? 'bg-blue-600 shadow-blue-200'
-                                : 'bg-gray-900 shadow-gray-200'}
+        w-14 h-14 rounded-xl flex items-center justify-center 
+        border-4 border-[#F4F7F9] transition-all duration-300
+        active:scale-90 shadow-xl
+        ${pathname === '/add'
+                                ? 'bg-blue-600 shadow-blue-200 rotate-90' // 활성화 시 살짝 회전 효과
+                                : 'bg-slate-800 shadow-slate-200 hover:bg-slate-700'}
     `}>
-                            <i className='bx bx-search text-white text-3xl'></i>
+                            {/* 플러스(+) 아이콘: 데이터 추가/생성 의미 */}
+                            <i className={`bx bx-plus text-white text-3xl transition-transform ${pathname === '/search' ? 'scale-110' : 'group-hover:scale-125'}`}></i>
                         </div>
-                        {/* 활성화 상태일 때 작은 빛 효과 (선택사항) */}
-                        {pathname === '/search' && (
-                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse" />
+
+                        {/* 태블로 스타일 하단 툴팁 라벨 (데스크탑 전용) */}
+                        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden lg:block">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-white px-2 py-1 rounded shadow-sm border border-slate-100">
+                                Add Data
+                            </span>
+                        </div>
+
+                        {/* 활성화 인디케이터: 단순 점 대신 바(Bar) 형태 */}
+                        {pathname === '/add' && (
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-1 bg-blue-600 rounded-full shadow-[0_0_8px_rgba(37,99,235,0.5)]" />
                         )}
                     </Link>
 
